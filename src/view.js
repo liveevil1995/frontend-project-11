@@ -54,6 +54,7 @@ const render = (path, value, watchedState) => {
       });
       break;
     case 'feedListItems':
+    case 'openModal':
       elements.posts.innerHTML = '';
       const cardPosts = document.createElement('div');
       cardPosts.classList.add('card', 'border-0');
@@ -80,18 +81,42 @@ const render = (path, value, watchedState) => {
         itemLi.setAttribute('data-postId', item.postID);
         const a = document.createElement('a');
         a.setAttribute('href', item.link);
-        a.classList.add('fw-bold');
         a.setAttribute('target', '_blank');
         a.textContent = item.title;
+        if (state.openModal.includes(item.postID)) {
+          a.classList.add('fw-normal', 'link-secondary');
+        } else {
+          a.classList.add('fw-bold');
+        }
         itemLi.append(a);
         const button = document.createElement('button');
         button.setAttribute('type', 'button');
         button.classList.add('btn', 'btn-outline-primary', 'btn-sm');
         button.textContent = 'Просмотр';
+        button.setAttribute('data-bs-toggle', 'modal');
+        button.setAttribute('data-bs-target', '#modal');
+        button.setAttribute('data-bs-title', item.title);
+        button.setAttribute('data-bs-link', item.link);
+        button.setAttribute('data-bs-description', item.description);
         itemLi.append(button);
         ulPosts.prepend(itemLi);
         elements.posts.append(ulPosts);
       });
+    case 'modal': {
+      const { title, link, description } = watchedState.modal;
+      elements.modalTitle.textContent = title;
+      elements.modalBody.textContent = description;
+      elements.modalFooterLink.setAttribute('href', link);
+      break;
+    }
+    case 'status': {
+      if (value === 'pending') {
+        console.log(elements.button)
+        elements.button.setAttribute('disabled', true);
+      } else {
+        elements.button.removeAttribute('disabled');
+      }
+    }
   }
 };
 

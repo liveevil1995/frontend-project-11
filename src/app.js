@@ -1,6 +1,7 @@
 import onChange from 'on-change';
 import * as yup from 'yup';
 import _ from 'lodash';
+import { Modal } from 'bootstrap';
 import state from './state';
 import elements from './elements';
 import render from './view';
@@ -74,6 +75,20 @@ const app = () => {
       watchedState.formState = 'invalid';
       watchedState.errors = validation;
     }
+  });
+
+  elements.posts.addEventListener('click', (e) => {
+    const { target } = e;
+    if (target.tagName === 'BUTTON') {
+      watchedState.modal = {
+        title: target.getAttribute('data-bs-title'),
+        link: target.getAttribute('data-bs-link'),
+        description: target.getAttribute('data-bs-description'),
+      };
+    }
+
+    const getOpenPost = e.target.closest('li');
+    watchedState.openModal.push(getOpenPost.getAttribute('data-postId'));
   });
 };
 
