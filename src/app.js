@@ -3,18 +3,21 @@ import * as yup from 'yup';
 import state from './state';
 import elements from './elements';
 import render from './view';
+import { i18nextInstance, setLocales } from './locales';
 
 const app = () => {
+  setLocales();
+
   const watchedState = onChange(state, (path, value) => {
     render(path, value, watchedState);
   });
 
   const schema = yup.lazy(() => yup.object().shape({
     url: yup
-      .string('Ссылка должна быть валидным URL')
-      .required('Не должно быть пустым')
-      .url('Ссылка должна быть валидным URL')
-      .notOneOf(watchedState.feeds, 'RSS уже существует'),
+      .string(i18nextInstance.t('incorrectURL'))
+      .required(i18nextInstance.t('empty'))
+      .url(i18nextInstance.t('incorrectURL'))
+      .notOneOf(watchedState.feeds, i18nextInstance.t('doubleURL')),
   }));
 
   const validate = (data) => {

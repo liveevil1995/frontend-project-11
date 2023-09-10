@@ -1,4 +1,7 @@
 import elements from './elements.js';
+import { i18nextInstance, setLocales } from './locales';
+
+const languages = { ru: 'ru', eng: 'en' };
 
 const render = (path, value, watchedState) => {
   switch (path) {
@@ -15,8 +18,11 @@ const render = (path, value, watchedState) => {
         elements.input.classList.remove('is-invalid');
         elements.message.classList.remove('text-danger');
         elements.message.classList.add('text-success');
-        elements.message.textContent = 'RSS успешно загружен';
+        elements.message.textContent = i18nextInstance.t('successMessage');
       }
+      break;
+    case 'language':
+      i18nextInstance.changeLanguage(languages[value]).then(() => setLocales());
       break;
   }
 };
