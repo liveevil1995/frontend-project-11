@@ -3,6 +3,8 @@ const state = {
   feeds: [],
   errors: {},
   language: 'ru',
+  feedListItems: [],
+  feedList: [],
 };
 
 export default state;
