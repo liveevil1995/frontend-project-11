@@ -6,12 +6,18 @@ import elements from './elements';
 import render from './view';
 import { i18nextInstance, setLocales } from './locales';
 import request from './request';
+import update from './update';
 
 const app = () => {
   setLocales();
   const watchedState = onChange(state, (path, value) => {
     render(path, value, watchedState);
   });
+
+  let updateTimer = setTimeout(function tick() {
+    update(watchedState);
+    updateTimer = setTimeout(tick, 5000);
+  }, 5000);
 
   const schema = yup.lazy(() => yup.object().shape({
     url: yup
