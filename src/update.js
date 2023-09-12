@@ -1,4 +1,5 @@
-import request from './request';
+import _ from 'lodash';
+import request from './request.js';
 
 const update = (watchedState) => {
   watchedState.feeds.forEach((url) => request(url).then((result) => {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { i18nextInstance } from './locales/index.js';
 import rssParser from './parser.js';
 
 const getLink = (url) => {
@@ -11,6 +12,6 @@ const getLink = (url) => {
 const request = (url) => axios
   .get(getLink(url), { timeout: 5000 })
   .then((data) => rssParser(data, url))
-  .catch(() => ({ message: 'error network' }));
+  .catch(() => ({ message: i18nextInstance.t('networkError') }));
 
 export default request;

@@ -1,7 +1,7 @@
-const modal = document.querySelector('#modal'),
-      form = document.querySelector('.rss-form');
+const modal = document.querySelector('#modal');
+const form = document.querySelector('.rss-form');
 const elements = {
-  form: form,
+  form,
   input: form.querySelector('#url-input'),
   button: form.querySelector('.btn'),
   message: document.querySelector('.feedback'),

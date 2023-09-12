@@ -1,13 +1,13 @@
 import onChange from 'on-change';
 import * as yup from 'yup';
 import _ from 'lodash';
-import { Modal } from 'bootstrap';
-import state from './state';
-import elements from './elements';
-import render from './view';
-import { i18nextInstance, setLocales } from './locales';
-import request from './request';
-import update from './update';
+import 'bootstrap/js/dist/modal.js';
+import state from './state.js';
+import elements from './elements.js';
+import render from './view.js';
+import { i18nextInstance, setLocales } from './locales/index.js';
+import request from './request.js';
+import update from './update.js';
 
 const app = () => {
   setLocales();
@@ -15,6 +15,7 @@ const app = () => {
     render(path, value, watchedState);
   });
 
+  // eslint-disable-next-line no-unused-vars
   let updateTimer = setTimeout(function tick() {
     update(watchedState);
     updateTimer = setTimeout(tick, 5000);

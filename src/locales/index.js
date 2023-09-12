@@ -1,7 +1,7 @@
 import i18next from 'i18next';
-import en from './_en';
-import ru from './_ru';
-import elements from '../elements';
+import en from './_en.js';
+import ru from './_ru.js';
+import elements from '../elements.js';
 
 const i18nextInstance = i18next.createInstance(
   {
